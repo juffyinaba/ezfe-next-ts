@@ -1,8 +1,23 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 
 export default function Home() {
+  const router = useRouter();  
+  
+  function goToDetailPage() {
+    router.push({
+      pathname: '/posts/[postId]',
+      query: {
+        postId: 2,
+        ref: 'Second'
+      }
+    })
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -51,6 +66,23 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
+
+          <div> 
+            <h1>Post List Page </h1>
+            <ul>
+                <li><Link href="/posts">Get All Page 🔗</Link></li>
+                <li><Link href="/posts/create">Create a Page 🔗</Link></li>
+                <li>Dynamic routes
+                    <ul>
+                        <li><Link href="/posts/1">Get a Post by a parameter 🔗</Link></li>
+                        <li><Link href="/posts/123/abc/xyz">Get a sub-page through multiple parameter 🔗</Link></li>
+                    </ul>
+                </li>
+                <li><button onClick={goToDetailPage}>Go to detail page id=2</button></li>
+                
+            </ul>
+          </div>
+
         </div>
       </main>
 
